@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
    });
   await newGuildModel.save()
   return
- d}
+ }
         if (message.content.toLowerCase().startsWith(`<@!${client.user.id}>`) || message.content.toLowerCase().startsWith(`<@${client.user.id}>`)) {
            return message.channel.send(`My prefix is \`${serverConfig.prefix}\`, if you need help use \`${serverConfig.prefix}help\``)
           } 
