@@ -13,7 +13,7 @@ module.exports = {
         if (!name) return message.channel.send('Type the name of the song.')
         let results = await buscador.buscar(name);
         if (results.length == 0) return message.channel.send("Nothing found");
-        let lyrics = await buscador.letra(results[0]);
+        const lyrics = await buscador.letra(results[0]);
 
         let embed = new Discord.MessageEmbed()
             .setColor("RANDOM")

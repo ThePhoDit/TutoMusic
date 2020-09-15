@@ -7,7 +7,7 @@ module.exports = {
 	async execute(client, message, args, queue) {
 		const serverQueue = queue.get(message.guild.id)
 		if (!message.member.voice.channel) return message.channel.send('You are not in a voice channel');
-		if (!serverQueue) return message.channel.send("There ins't songs in the queue right now.");
+		if (!serverQueue) return message.channel.send("There isn't songs in the queue right now.");
 		if (!args[1]) return message.channel.send(`Volume: **${serverQueue.volume}**`);
 		if(Number(args[1]) > 10) return message.channel.send('NO')
 		serverQueue.volume = args[1];

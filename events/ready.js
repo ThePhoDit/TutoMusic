@@ -3,7 +3,7 @@ console.log(`${client.user.username} está online para ${client.users.cache.size
 client.user.setPresence({
     status: "online",
     activity: {
-      name: 'pon tu el estado lol',
+      name: 'some music',
       type: 'PLAYING'
     }
   });

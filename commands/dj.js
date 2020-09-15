@@ -6,7 +6,7 @@ module.exports = {
     example: 'dj Music',
     aliases: ['dj-role', 'djrole'],
     async execute(client, message, args) {
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('You need the ADMINISTRATOR permission to use this command')
+        if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You need the `MANAGE_SERVER` permission to use this command')
         const serverConfig = await model.findOne({id: message.guild.id})
         if(args[0] === 'disable') {
          serverConfig.dj = '0'

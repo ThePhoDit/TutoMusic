@@ -25,11 +25,11 @@ module.exports = {
           if(skips.includes(message.author.id)) return message.channel.send(`You have already voted to skip (${skips.length}/${required})`)
           skips.push(message.author.id)
           if(skips.length >= required) {
-          message.channel.send("Skipping...")
-          serverQueue.connection.dispatcher.end()
-          return
+            message.channel.send("Skipping...")
+            serverQueue.connection.dispatcher.end()
+            return
           } else {
-          message.channel.send(`Skipping? ${skips.length}/${required}`)
+            message.channel.send(`Skipping? ${skips.length}/${required}`)
           }
   }
   }
