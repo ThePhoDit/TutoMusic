@@ -1,18 +1,21 @@
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const ytdl = require('ytdl-core')
 let queue = new Map()
+const model = require('../functions/model');
+
 async function play(guild, song) {
     const serverQueue = queue.get(guild.id);
+    const serverConfig = await model.findOne({id: guild.id});
     
     if (!song) {
       serverQueue.voiceChannel.leave();
       queue.delete(guild.id);
       return;
     }
-    console.log(serverQueue.songs);
+
     let seek = song.seek
     const dispatcher = serverQueue.connection
-      .play(ytdl(song.url), {seek: seek})
+      .play(ytdl(song.url), { seek: seek, volume: serverConfig.volume })
       dispatcher.once("finish", reason => {
         if (reason === "Stream is not generating quickly enough.")
           console.log("Song ended.");
@@ -38,4 +41,4 @@ async function play(guild, song) {
         .setThumbnail(`https://img.youtube.com/vi/${song.id}/hqdefault.jpg`);
       return serverQueue.textChannel.send(embed);
   };
-  module.exports = {play, queue}
+  module.exports = { play, queue }

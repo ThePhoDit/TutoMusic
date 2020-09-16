@@ -1,4 +1,4 @@
-const {queue} = require('../functions/play.js')
+const { queue } = require('../functions/play.js')
 const model = require('../functions/model')
 module.exports = async (client, message) => { 
     if(message.channel.type === 'text') {
@@ -6,16 +6,18 @@ module.exports = async (client, message) => {
     const serverConfig = await model.findOne({id: message.guild.id})
     if(!serverConfig) {
         let newGuildModel = new model({ 
-          id: message.guild.id,
-          dj: '0',
-          prefix: '*'
-   });
-  await newGuildModel.save()
-  return
- }
-        if (message.content.toLowerCase().startsWith(`<@!${client.user.id}>`) || message.content.toLowerCase().startsWith(`<@${client.user.id}>`)) {
+            id: message.guild.id,
+            dj: '0',
+            prefix: '*',
+            volume: 1
+        });
+        await newGuildModel.save();
+    }
+
+    if (message.content.toLowerCase().startsWith(`<@!${client.user.id}>`) || message.content.toLowerCase().startsWith(`<@${client.user.id}>`)) {
            return message.channel.send(`My prefix is \`${serverConfig.prefix}\`, if you need help use \`${serverConfig.prefix}help\``)
-          } 
+    }
+
     let prefix = serverConfig.prefix
     if (!message.content.startsWith(prefix)) return;
 

@@ -15,7 +15,6 @@ async function handleVideo(
       string = string + `:${t}`;
     }
 
-    console.log(video);
     const song = {
       id: video.id,
       title: video.title,
@@ -42,6 +41,7 @@ async function handleVideo(
 
       try {
         var connection = await voiceChannel.join();
+        voiceChannel.guild.me.voice.setDeaf(true).catch(() => false);
         queueConstruct.connection = connection;
         play(message.guild, queueConstruct.songs[0]);
       } catch (error) {

@@ -14,6 +14,7 @@ module.exports = {
         let results = await buscador.buscar(name);
         if (results.length == 0) return message.channel.send("Nothing found");
         const lyrics = await buscador.letra(results[0]);
+        if (!lyrics) return message.channel.send('I could not get the lyrics. Please try again.');
 
         let embed = new Discord.MessageEmbed()
             .setColor("RANDOM")

@@ -38,6 +38,7 @@ module.exports = {
                         .setTitle("__**Song Selection**__")
                         .setColor("#1423aa")
                         .setDescription(`${videos.map(video2 => `**${++index} -** [${video2.title}](${video2.url})`).join('\n')} \nType the number of the song you want.`)
+                        .setFooter('Type "cancel" if you do not want to select any song.')
                     message.channel.send(embed);
 
                     try {
