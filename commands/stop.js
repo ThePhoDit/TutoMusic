@@ -12,13 +12,13 @@ module.exports = {
         const serverConfig = await model.findOne({id: message.guild.id})
 
         let djrole;
-        if(serverConfig.djrole) {
-         djrole = message.guild.roles.cache.get(serverConfig.djrole)
+        if (serverConfig.djrole) {
+            djrole = message.guild.roles.cache.get(serverConfig.djrole);
         } else {
-         djrole = message.guild.roles.cache.find(r => r.name === 'DJ')
+            djrole = message.guild.roles.cache.find(r => r.name === 'DJ');
         }
 
-        if((!(djrole || message.member.roles.cache.has(djrole.id))) && message.member.id !== serverQueue.songs[0].requested) return message.channel.send('You need the DJ role to stop a song of other member')
+        if (djrole && !message.member.roles.cache.has(djrole.id) && message.member.id !== serverQueue.songs[0].requested) return message.channel.send('You need the DJ role to stop a song of other member')
         serverQueue.songs = [];
         serverQueue.voiceChannel.leave();
         queue.delete(message.guild.id);

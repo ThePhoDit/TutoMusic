@@ -22,15 +22,17 @@ module.exports = {
         if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
             const playlist = await youtube.getPlaylist(url);
             const videos = await playlist.getVideos();
-            for (const video of Object.values(videos)) {
-                const video2 = await youtube.getVideoByID(video.id); 
-                await client.handleVideo(video2, message, voiceChannel, true); 
+
+            const videoValues = Object.values(videos);
+            let i = 0;
+            while (i < 10) {
+                const video2 = await youtube.getVideoByID(videoValues[i].id);
+                await handleVideo(video2, message, voiceChannel, true);
+                i ++;
             }
+
             return message.channel.send(`Playlist: **${playlist.title}** was added to the queue`);
         } else {
-            try {
-                var video = await youtube.getVideo(url);
-            } catch (error) {
                 try {
                     var videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
@@ -57,7 +59,7 @@ module.exports = {
                     console.error(err);
                     return message.channel.send("I couldn't get results");
                 }
-            }
+            
 
             return handleVideo(video, message, voiceChannel);
         }

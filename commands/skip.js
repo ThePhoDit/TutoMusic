@@ -15,8 +15,8 @@ module.exports = {
           } else {
               djrole = message.guild.roles.cache.find(r => r.name === 'DJ');
           }
-          if((djrole && message.member.roles.cache.has(djrole.id)) || serverQueue.songs[0].requested === message.author.id) {
-            serverQueue.connection.dispatcher.end()
+          if (djrole && message.member.roles.cache.has(djrole.id)) {
+            serverQueue.connection.dispatcher.end();
             return
           }
 

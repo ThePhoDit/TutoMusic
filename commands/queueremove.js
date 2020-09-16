@@ -23,10 +23,12 @@ module.exports = {
             } else {
              djrole = message.guild.roles.cache.find(r => r.name === 'DJ')
             }
-            if((!djrole || !message.member.roles.cache.has(djrole.id)) && message.member.id !== serverQueue.songs[0].requested) return message.channel.send('You need the DJ role to remove a song of other member')
-            let existe = serverQueue.songs[Math.floor((args[0]) - 1)] ? true : false
-            if (existe === true) {
-                message.channel.send(`${serverQueue.songs[Math.floor((args[0]) - 1)].title} has been succesfully removed from the queue.`)
+
+            if (djrole && !message.member.roles.cache.has(djrole.id) && message.member.id !== serverQueue.songs[0].requested) return message.channel.send('You need the DJ role to remove a song of other member');
+
+            let existe = !!serverQueue.songs[Math.floor((args[0]) - 1)];
+            if (existe) {
+                message.channel.send(`${serverQueue.songs[Math.floor((args[0]) - 1)].title} has been successfully removed from the queue.`)
                 delete(serverQueue.songs[Math.floor((args[0]) - 1)])
                 console.log("Delete queue command has been used.")
                 const arr = [...Array(serverQueue.songs.length + 1).keys()];
