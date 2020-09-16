@@ -2,8 +2,9 @@ const { queue } = require('../functions/play.js')
 const model = require('../functions/model')
 module.exports = async (client, message) => { 
     if(message.channel.type === 'text') {
-    if(message.author.bot || message.system) return
-    const serverConfig = await model.findOne({id: message.guild.id})
+    if(message.author.bot || message.system) return;
+
+    let serverConfig = await model.findOne({id: message.guild.id});
     if(!serverConfig) {
         let newGuildModel = new model({ 
             id: message.guild.id,
@@ -12,6 +13,7 @@ module.exports = async (client, message) => {
             volume: 1
         });
         await newGuildModel.save();
+        serverConfig = newGuildModel;
     }
 
     if (message.content.toLowerCase().startsWith(`<@!${client.user.id}>`) || message.content.toLowerCase().startsWith(`<@${client.user.id}>`)) {

@@ -1,5 +1,7 @@
-const {play, queue} = require('./play.js')
-const {MessageEmbed} = require('discord.js')
+const { play, queue } = require('./play.js')
+const  { MessageEmbed } = require('discord.js')
+const model = require('../functions/model');
+
 async function handleVideo(
     video,
     message,
@@ -8,6 +10,8 @@ async function handleVideo(
     seek
   ) {
     const serverQueue = queue.get(message.guild.id);
+    const serverConfig = await model.findOne({id: message.guild.id});
+
     let string = "";
     for (let t of Object.values(video.duration)) {
       if (!t) continue;
@@ -32,7 +36,7 @@ async function handleVideo(
         voiceChannel: voiceChannel,
         connection: null,
         songs: [],
-        volume: 5,
+        volume: serverConfig.volume,
         playing: true
       };
       queue.set(message.guild.id, queueConstruct);
@@ -41,7 +45,9 @@ async function handleVideo(
 
       try {
         var connection = await voiceChannel.join();
+
         voiceChannel.guild.me.voice.setDeaf(true).catch(() => false);
+
         queueConstruct.connection = connection;
         play(message.guild, queueConstruct.songs[0]);
       } catch (error) {
