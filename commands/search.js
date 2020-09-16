@@ -28,9 +28,11 @@ module.exports = {
                 .setDescription(`${videos.map(video2 => `**${++index} -** [${video2.title}](${video2.url})`).join('\n')} \nType the number of the song you want.`)
                 .setFooter('Type "cancel" if you do not want to select any song.')
             message.channel.send(embed);
+            
+            let response;
 
             try {
-                var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
+                response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11 && message2.author.id === message.author.id, {
                     max: 1,
                     time: 10000,
                     errors: ['time']
@@ -40,7 +42,7 @@ module.exports = {
                 return message.channel.send('Cancelling...');
             }
             const videoIndex = parseInt(response.first().content);
-            var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+            let video = await youtube.getVideoByID(videos[videoIndex - 1].id);
         }
         catch (err) {
             console.error(err);
