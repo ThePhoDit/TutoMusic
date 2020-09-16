@@ -9,8 +9,8 @@ module.exports = {
         if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You need the `MANAGE_SERVER` permission to use this command')
         const serverConfig = await model.findOne({id: message.guild.id});
         if(args[0] === 'disable') {
-            if (serverConfig.dj === '0') return message.channel.send('The DJ role is already disabled.');
-            serverConfig.dj = '0'
+            if (!serverConfig.dj) return message.channel.send('The DJ role is already disabled.');
+            serverConfig.dj = null;
             serverConfig.save()
          return message.channel.send('Ok, the DJ role was set to null');
         }

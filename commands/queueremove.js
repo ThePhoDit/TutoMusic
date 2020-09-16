@@ -18,7 +18,7 @@ module.exports = {
             const serverConfig = await model.findOne({id: message.guild.id})
 
             let djrole;
-            if(serverConfig.djrole !== '0') {
+            if(serverConfig.djrole) {
              djrole = message.guild.roles.cache.get(serverConfig.djrole)
             } else {
              djrole = message.guild.roles.cache.find(r => r.name === 'DJ')
