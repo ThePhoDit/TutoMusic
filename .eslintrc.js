@@ -40,6 +40,9 @@ module.exports = {
 		'require-await': [
 			'error'
 		],
+		'prefer-const': [
+			'error'
+		],
 		'sort-imports': [
 			'error',
 			{
@@ -60,7 +63,6 @@ module.exports = {
 				'trailingComma': 'none',
 				'bracketSpacing': true,
 				'arrowParens': 'always',
-				'parser': 'typescript',
 				'endOfLine': 'crlf'
 			}
 		]

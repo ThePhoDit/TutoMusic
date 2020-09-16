@@ -1,10 +1,13 @@
 module.exports = async (client) => {
-console.log(`${client.user.username} está online para ${client.users.cache.size} usuarios y ${client.guilds.cache.size} servidores`)
-client.user.setPresence({
-    status: "online",
-    activity: {
-      name: 'some music',
-      type: 'PLAYING'
-    }
-  });
-}
+	console.log(
+		`[Gateway] Connected to the gateway as ${client.user.username} (U: ${client.users.cache.size}, S: ${client.guilds.cache.size}).`
+	);
+
+	await client.user.setPresence({
+		status: 'online',
+		activity: {
+			name: 'Some Music',
+			type: 'PLAYING'
+		}
+	});
+};
