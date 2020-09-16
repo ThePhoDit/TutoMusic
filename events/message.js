@@ -26,7 +26,7 @@ module.exports = async (client, message) => {
        
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) return;
-    
+
     if(command.myPerms) {
         let perms = command.myPerms.slice(1)
 

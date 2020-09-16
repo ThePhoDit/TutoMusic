@@ -15,7 +15,7 @@ async function play(guild, song) {
 
     let seek = song.seek
     const dispatcher = serverQueue.connection
-      .play(ytdl(song.url), { seek: seek, volume: serverConfig.volume })
+      .play(ytdl(song.url), { seek: seek, volume: serverConfig.volume || 1 })
       dispatcher.once("finish", reason => {
         if (reason === "Stream is not generating quickly enough.")
           console.log("Song ended.");
