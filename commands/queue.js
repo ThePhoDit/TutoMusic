@@ -35,7 +35,7 @@ module.exports = {
 					serverQueue.songs[0].duration
 				}](https://www.youtube.com/watch?v=${serverQueue.songs[0].id})`
 			)
-			.setFooter(`Page ${page} of ${Math.floor(serverQueue.songs.length / 10)}`)
+			.setFooter(`Page ${page + 1} of ${Math.floor(serverQueue.songs.length / 10) + 1}`)
 			.setTimestamp();
 		return await message.channel.send(embed);
 	}
