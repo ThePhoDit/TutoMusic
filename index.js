@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Client, Collection } = require('discord.js');
 const { inspect } = require('util');
 const { join } = require('path');
-const { readdir } = require('fs/promises');
+const { readdir } = require('fs').promises;
 
 require('dotenv').config();
 
