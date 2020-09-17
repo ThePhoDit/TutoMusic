@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const YouTube = require('simple-youtube-api');
 const { Client, Collection } = require('discord.js');
 const { inspect } = require('util');
 const { join } = require('path');
@@ -9,6 +10,7 @@ require('dotenv').config();
 /**
  * @typedef {Object} ClientCommands
  * @property {import('discord.js').Collection<string, Command>} commands
+ * @property {import('simple-youtube-api')} youtube
  */
 
 /**
@@ -43,6 +45,7 @@ db.on('error', (error) => console.error(`[MongoDB] Connection Error: ${inspect(e
 db.once('open', () => console.log('[MongoDB] Connection established.'));
 
 client.commands = new Collection();
+client.youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 readdir(join(__dirname, 'commands'), { encoding: 'utf8' })
 	.then((files) => {

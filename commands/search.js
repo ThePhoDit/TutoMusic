@@ -1,8 +1,5 @@
-const YouTube = require('simple-youtube-api');
 const handleVideo = require('../functions/handleVideo');
 const { MessageEmbed } = require('discord.js');
-
-const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 /**
  * @type {import('../index').Command}
@@ -14,13 +11,13 @@ module.exports = {
 	example: 'search paradisus paradoxum',
 	aliases: ['sc'],
 	myPerms: [false, 'CONNECT', 'SPEAK'],
-	async execute(_client, message, args) {
+	async execute(client, message, args) {
 		const searchString = args.slice(0).join(' ');
 		const voiceChannel = message.member.voice.channel;
 		if (!voiceChannel)
 			return await message.channel.send('You are not in a voice channel.');
 
-		const videos = await youtube.searchVideos(searchString, 10).catch(() => false);
+		const videos = await client.youtube.searchVideos(searchString, 10).catch(() => false);
 		if (typeof videos === 'boolean' || videos.length < 1)
 			return await message.channel.send('No videos/songs found with that query.');
 
@@ -56,7 +53,8 @@ module.exports = {
 
 		const videoIndex = parseInt(response.first().content);
 		const video = videos[videoIndex - 1];
+		const actualVideo = client.youtube.getVideoByID(video.id);
 
-		return await handleVideo(video, message, voiceChannel);
+		return await handleVideo(actualVideo, message, voiceChannel);
 	}
 };
