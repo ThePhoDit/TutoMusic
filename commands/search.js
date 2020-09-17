@@ -43,7 +43,7 @@ module.exports = {
 					msg.content > 0 && msg.content < 11 && msg.author.id === message.author.id,
 				{
 					max: 1,
-					time: 12000,
+					time: 10000,
 					errors: ['time']
 				}
 			)
