@@ -52,9 +52,9 @@ module.exports = {
 			return await message.channel.send('No response. Cancelling...');
 		else if (response.first().content === 'cancel')
 			return await message.channel.send('Cancelling...');
-		else if (isNaN(response.fisrt().content))
+		else if (isNaN(response.first().content))
 			return await message.channel.send('You must send a number.');
-		else if (response.fisrt().content < 1 || response.fisrt().content > 10)
+		else if (response.first().content < 1 || response.first().content > 10)
 			return await message.channel.send('Select a number between 1 and 10');
 
 		const videoIndex = parseInt(response.first().content);
