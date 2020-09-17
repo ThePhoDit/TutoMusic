@@ -53,7 +53,7 @@ module.exports = {
 
 		const videoIndex = parseInt(response.first().content);
 		const video = videos[videoIndex - 1];
-		const actualVideo = client.youtube.getVideoByID(video.id);
+		const actualVideo = await client.youtube.getVideoByID(video.id);
 
 		return await handleVideo(actualVideo, message, voiceChannel);
 	}
