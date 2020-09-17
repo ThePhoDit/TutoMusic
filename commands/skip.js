@@ -6,7 +6,8 @@ module.exports = {
 	description: 'Skip a song',
 	aliases: ['skip'],
 	async execute(_client, message, _args, settings, queue) {
-		if (!message.member.voice.channel) return message.channel.send('You are not in a voice channel');
+		if (!message.member.voice.channel)
+			return await message.channel.send('You are not in a voice channel');
 
 		const serverQueue = queue.get(message.guild.id);
 		if (!serverQueue) return;

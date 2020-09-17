@@ -21,10 +21,7 @@ module.exports = {
 			? message.guild.roles.cache.get(settings.dj)
 			: message.guild.roles.cache.find((role) => role.name === 'DJ');
 
-		if (
-			djRole &&
-			!message.member.roles.cache.has(djRole.id)
-		)
+		if (djRole && !message.member.roles.cache.has(djRole.id))
 			return message.channel.send('You need the DJ role to change the volume.');
 
 		if (parseFloat(args[1]) > 10)
