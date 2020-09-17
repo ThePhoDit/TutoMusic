@@ -39,17 +39,23 @@ module.exports = {
 				/**
 				 * @param {import('discord.js').Message} msg
 				 */
-				(msg) =>
-					msg.content > 0 && msg.content < 11 && msg.author.id === message.author.id,
+				(msg) => msg.author.id === message.author.id,
 				{
 					max: 1,
-					time: 10000,
+					time: 20000,
 					errors: ['time']
 				}
 			)
 			.catch(() => false);
+
 		if (typeof response === 'boolean')
 			return await message.channel.send('No response. Cancelling...');
+		else if (response.first().content === 'cancel')
+			return await message.channel.send('Cancelling...');
+		else if (isNaN(response.fisrt().content))
+			return await message.channel.send('You must send a number.');
+		else if (response.fisrt().content < 1 || response.fisrt().content > 10)
+			return await message.channel.send('Select a number between 1 and 10');
 
 		const videoIndex = parseInt(response.first().content);
 		const video = videos[videoIndex - 1];
