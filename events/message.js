@@ -9,11 +9,6 @@ module.exports = async (client, message) => {
 	if (message.channel.type !== 'text') return;
 	if (message.author.bot || message.system) return;
 
-	if (message.content.match(client.mentionMatch))
-		return message.channel.send(
-			`My prefix is \`${serverConfig.prefix}\`, if you need help use \`${serverConfig.prefix}help\``
-		);
-
 	/**
 	 * @type import('../functions/model').GuildDocument
 	 */
@@ -25,6 +20,11 @@ module.exports = async (client, message) => {
 			prefix: '*',
 			volume: 1
 		}).save());
+
+	if (message.content.match(`^<@(!)?${client.user.id}>`))
+		return message.channel.send(
+			`My prefix is \`${serverConfig.prefix}\`, if you need help use \`${serverConfig.prefix}help\``
+		);
 
 	const prefix = serverConfig.prefix;
 	if (!message.content.startsWith(prefix)) return;

@@ -9,7 +9,6 @@ require('dotenv').config();
 /**
  * @typedef {Object} ClientCommands
  * @property {import('discord.js').Collection<string, Command>} commands
- * @property {RegExp} mentionMatch
  */
 
 /**
@@ -44,7 +43,6 @@ db.on('error', (error) => console.error(`[MongoDB] Connection Error: ${inspect(e
 db.once('open', () => console.log('[MongoDB] Connection established.'));
 
 client.commands = new Collection();
-client.mentionMatch = new RegExp(`^<@(!)?${client.user.id}>`, 'gi');
 
 readdir(join(__dirname, 'commands'), { encoding: 'utf8' })
 	.then((files) => {

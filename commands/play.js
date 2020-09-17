@@ -14,7 +14,7 @@ module.exports = {
 	aliases: ['p'],
 	myPerms: [false, 'CONNECT', 'SPEAK'],
 	async execute(_client, message, args) {
-		const searchString = args.slice(0).join(' ');
+		const searchString = args.join(' ');
 		const url = args[0] ? args[0].replace(/<(.+)>/g, '$1') : '';
 
 		const voiceChannel = message.member.voice.channel;
@@ -35,6 +35,7 @@ module.exports = {
 		} else {
 			const video = await youtube.getVideo(url).catch(async () => {
 				const videos = await youtube.searchVideos(searchString, 1).catch(() => false);
+				console.log(videos);
 				if (typeof videos === 'boolean' || videos.length < 1) return false;
 				return videos[0];
 			});
