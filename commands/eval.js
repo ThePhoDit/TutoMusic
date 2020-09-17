@@ -23,7 +23,8 @@ module.exports = {
 	usage: 'only admin',
 	example: 'only admin',
 	type: -1,
-	async execute(_client, message, args) {
+	// eslint-disable-next-line no-unused-vars
+	async execute(client, message, args, settings, queue) {
 		if (owners.some((owner) => message.author.id === owner)) {
 			const depthTo = args.indexOf('-depth') > -1 ? args[args.indexOf('-depth') + 1] : 0;
 			try {
