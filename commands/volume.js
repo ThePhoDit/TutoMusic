@@ -11,10 +11,22 @@ module.exports = {
 		const serverQueue = queue.get(message.guild.id);
 		if (!message.member.voice.channel)
 			return await message.channel.send('You are not in a voice channel');
+
 		if (!serverQueue)
 			return await message.channel.send("There aren't any songs in the queue right now.");
 		if (!args[1] || args[0] !== 'set')
 			return await message.channel.send(`Volume: **${serverQueue.volume}**.`);
+
+		const djRole = settings.dj
+			? message.guild.roles.cache.get(settings.dj)
+			: message.guild.roles.cache.find((role) => role.name === 'DJ');
+
+		if (
+			djRole &&
+			!message.member.roles.cache.has(djRole.id)
+		)
+			return message.channel.send('You need the DJ role to change the volume.');
+
 		if (parseFloat(args[1]) > 10)
 			return message.channel.send('Volume should not be over 10.');
 		if (settings.volume === parseFloat(args[1]))

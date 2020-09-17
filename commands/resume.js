@@ -5,6 +5,8 @@ module.exports = {
 	name: 'resume',
 	description: 'Resume the current song',
 	async execute(_client, message, _args, _settings, queue) {
+		if (!message.member.voice.channel) return message.channel.send('You are not in a voice channel');
+
 		const serverQueue = queue.get(message.guild.id);
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
