@@ -11,7 +11,7 @@ const { MessageEmbed } = require('discord.js');
  */
 function arrayMove(arr, oldIndex, newIndex) {
 	if (newIndex >= arr.length) {
-		var k = newIndex - arr.length + 1;
+		let k = newIndex - arr.length + 1;
 		while (k--) arr.push(undefined);
 	}
 
@@ -84,8 +84,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 		const result = await Promise.all([
 			voiceChannel.guild.me.voice.setDeaf(true).catch(() => undefined),
 			play(message.guild, queueConstruct.songs[0], serverConfig)
-		]).catch((e) => {
-			console.log(e);
+		]).catch(() => {
 			queue.delete(message.guild.id);
 			return false;
 		});
@@ -105,7 +104,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 			var embed = new MessageEmbed()
 				.setTitle('Added to the queue')
 				.setDescription(
-					`[${song.title}](${song.url}) has been succesfully added to the queue!`
+					`[${song.title}](${song.url}) has been successfully added to the queue!`
 				)
 				.addField('Channel', song.channel, true)
 				.addField('Duration', song.duration, true)
