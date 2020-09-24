@@ -28,9 +28,6 @@ function arrayMove(arr, oldIndex, newIndex) {
  */
 async function handleVideo(video, message, voiceChannel, playlist = false, seek) {
 	const serverQueue = queue.get(message.guild.id);
-	serverQueue.connection.dispatcher.on('finish', () => console.log('Finished'));
-	serverQueue.connection.dispatcher.on('error', (e) => console.log(e));
-	serverQueue.connection.dispatcher.on('close', () => console.log('Closed'));
 	/**
 	 * @type import('./model').GuildDocument
 	 */
@@ -83,6 +80,11 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 			return message.channel.send('Could not join voice channel.');
 
 		queueConstruct.connection = connection;
+
+		serverQueue.connection.dispatcher.on('finish', () => console.log('Finished'));
+		serverQueue.connection.dispatcher.on('error', (e) => console.log(e));
+		serverQueue.connection.dispatcher.on('close', () => console.log('Closed'));
+
 		const result = await Promise.all([
 			voiceChannel.guild.me.voice.setDeaf(true).catch(() => undefined),
 			play(message.guild, queueConstruct.songs[0], serverConfig)
