@@ -81,9 +81,9 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 
 		queueConstruct.connection = connection;
 
-		serverQueue.connection.dispatcher.on('finish', () => console.log('Finished'));
-		serverQueue.connection.dispatcher.on('error', (e) => console.log(e));
-		serverQueue.connection.dispatcher.on('close', () => console.log('Closed'));
+		queueConstruct.connection.dispatcher.on('finish', () => console.log('Finished'));
+		queueConstruct.connection.dispatcher.on('error', (e) => console.log(e));
+		queueConstruct.connection.dispatcher.on('close', () => console.log('Closed'));
 
 		const result = await Promise.all([
 			voiceChannel.guild.me.voice.setDeaf(true).catch(() => undefined),
