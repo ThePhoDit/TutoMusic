@@ -81,14 +81,11 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 
 		queueConstruct.connection = connection;
 
-		queueConstruct.connection.dispatcher.on('finish', () => console.log('Finished'));
-		queueConstruct.connection.dispatcher.on('error', (e) => console.log(e));
-		queueConstruct.connection.dispatcher.on('close', () => console.log('Closed'));
-
 		const result = await Promise.all([
 			voiceChannel.guild.me.voice.setDeaf(true).catch(() => undefined),
 			play(message.guild, queueConstruct.songs[0], serverConfig)
-		]).catch(() => {
+		]).catch((e) => {
+			console.log(e);
 			queue.delete(message.guild.id);
 			return false;
 		});
