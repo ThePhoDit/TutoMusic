@@ -73,7 +73,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek 
 		queueConstruct.songs.push(song);
 
 		const connection = await voiceChannel.join().catch(() => {
-			console.log('Error 1');
 			queue.delete(message.guild.id);
 			return false;
 		});
@@ -86,7 +85,6 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek 
 			voiceChannel.guild.me.voice.setDeaf(true).catch(() => undefined),
 			play(message.guild, queueConstruct.songs[0], serverConfig)
 		]).catch(() => {
-			console.log('Error 2');
 			queue.delete(message.guild.id);
 			return false;
 		});
@@ -103,7 +101,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek 
 
 		if (playlist) return;
 		else {
-			let embed = new MessageEmbed()
+			const embed = new MessageEmbed()
 				.setTitle('Added to the queue')
 				.setDescription(
 					`[${song.title}](${song.url}) has been successfully added to the queue!`
