@@ -47,8 +47,6 @@ db.once('open', () => console.log('[MongoDB] Connection established.'));
 client.commands = new Collection();
 client.youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
-client.on('debug', (m) => console.log(m));
-
 readdir(join(__dirname, 'commands'), { encoding: 'utf8' })
 	.then((files) => {
 		for (const file of files) {
