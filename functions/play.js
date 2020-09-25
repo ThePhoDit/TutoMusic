@@ -59,7 +59,7 @@ async function play(guild, song, settings) {
 		.once('finish', (reason) => {
 			if (reason === 'Stream is not generating quickly enough.')
 				console.log('Song ended.');
-			else console.log('Finish else');
+			else console.log(reason);
 			if (serverQueue.loop === true) {
 				serverQueue.songs.push(serverQueue.songs.shift());
 				serverQueue.songs[serverQueue.songs.length - 1].seek = 0;
@@ -70,7 +70,7 @@ async function play(guild, song, settings) {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
 	if (seek > 0) return;
-	var embed = new MessageEmbed()
+	const embed = new MessageEmbed()
 		.setTitle('🎶 Now playing 🎶')
 		.setDescription(`[${song.title}](${song.url})`)
 		.setColor('RANDOM')

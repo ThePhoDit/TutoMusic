@@ -26,7 +26,7 @@ function arrayMove(arr, oldIndex, newIndex) {
  * @param {boolean} playlist
  * @param {number} seek
  */
-async function handleVideo(video, message, voiceChannel, playlist = false, seek) {
+async function handleVideo(video, message, voiceChannel, playlist = false, seek = 0) {
 	const serverQueue = queue.get(message.guild.id);
 	/**
 	 * @type import('./model').GuildDocument
@@ -51,7 +51,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 		channel: video.channel.title,
 		url: `https://www.youtube.com/watch?v=${video.id}`,
 		requested: message.author.id,
-		seek: seek ? seek : 0,
+		seek: seek,
 		skip: []
 	};
 
@@ -101,7 +101,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false, seek)
 
 		if (playlist) return;
 		else {
-			var embed = new MessageEmbed()
+			let embed = new MessageEmbed()
 				.setTitle('Added to the queue')
 				.setDescription(
 					`[${song.title}](${song.url}) has been successfully added to the queue!`
