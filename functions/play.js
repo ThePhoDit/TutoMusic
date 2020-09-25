@@ -51,7 +51,10 @@ async function play(guild, song, settings) {
 	}
 
 	const seek = song.seek;
-	const dispatcher = serverQueue.connection.play(ytdl(song.url), {
+	const stream = ytdl(song.url);
+	stream.on('error', (error) => console.error(error));
+
+	const dispatcher = serverQueue.connection.play(stream, {
 		seek: seek,
 		volume: settings.volume || 1
 	});
