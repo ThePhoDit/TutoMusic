@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const ytdl = require('ytdl-core');
+const ytdl = require('ytdl-core-discord');
 /**
  * @type Map<string, QueueMember>
  */
@@ -51,12 +51,13 @@ async function play(guild, song, settings) {
 	}
 
 	const seek = song.seek;
-	const stream = ytdl(song.url);
+	const stream = await ytdl(song.url);
 	stream.on('error', (error) => console.error(error));
 
 	const dispatcher = serverQueue.connection.play(stream, {
 		seek: seek,
-		volume: settings.volume || 1
+		volume: settings.volume || 1,
+		type: 'opus'
 	});
 	dispatcher
 		.once('finish', (reason) => {
