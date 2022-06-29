@@ -1,4 +1,6 @@
-.vscode/
-.idea/
-node_modules/
 .env
+node_modules/
+.eslintignore
+.eslintrc.js
+.idea/
+.vscode/
