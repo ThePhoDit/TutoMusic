@@ -25,7 +25,7 @@ async function play(guild, song) {
 
 	let source;
 	try {
-		source = stream(song.url, { seek: song.seek });
+		source = await stream(song.url, { seek: song.seek });
 	} catch (error) {
 		console.error(error);
 		serverQueue.textChannel.send('Ocurrió un error al ejecutar este comando. ¿Tiene el vídeo restricción de edad?\n' + error.message);

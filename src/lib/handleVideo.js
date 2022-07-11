@@ -62,7 +62,7 @@ module.exports = function handleVideo(video, interaction, playlist = false, seek
 		serverQueue.songs.push(song);
 		if (seek) {
 			if (seek > song.durationInSec) return interaction.channel.send('¡El vídeo finaliza antes de llegar ahí!');
-			moveArray(serverQueue.song, serverQueue.songs.length - 1, 1);
+			moveArray(serverQueue.songs, serverQueue.songs.length - 1, 1);
 			return getVoiceConnection(interaction.guildId).state.subscription.player.stop(); //mover la última canción (la que se acaba de pedir con seek) a la segunda posición y hacer skip
 		}
 		if (serverQueue.leaveTimeout) {

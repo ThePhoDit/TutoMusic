@@ -16,12 +16,18 @@ module.exports = [
 				type: 'STRING',
 				description: 'La canción que quieras añadir',
 				required: true
-			},
+			}
+		]
+	},
+	{
+		name: 'search',
+		description: 'Busca canciones para seleccionar entre 10 resultados',
+		options: [
 			{
-				name: 'selección',
-				type: 'BOOLEAN',
-				description: 'Si debería mostrarte los 10 primeros resultados y dejarte seleccionar',
-				required: false
+				name: 'búsqueda',
+				type: 'STRING',
+				description: 'La canción que quieras buscar',
+				required: true
 			}
 		]
 	}

@@ -1,6 +1,7 @@
 const { Client, Intents, Collection } = require('discord.js');
 const { readdir, readdirSync } = require('fs');
 const { join } = require('path');
+const play = require('play-dl');
 
 require('dotenv').config();
 
@@ -30,8 +31,19 @@ readdir(eventsPath, (err, files) => {
 });
 
 process.on('unhandledRejection', (err) => {
-	client.channels.cache.get('991658494975557692').send(`\`\`\`js\n${err.stack}\`\`\``);
 	console.log(err);
+	client.channels.cache.get('991658494975557692').send(`\`\`\`js\n${err.stack}\`\`\``);
 });
+
+play.setToken({
+	spotify: {
+		client_id: process.env.SPOTIFY_CLIENT_ID,
+		client_secret: process.env.SPOTIFY_CLIENT_SECRET,
+		refresh_token: process.env.SPOTIFY_REFRESH_TOKEN,
+		market: 'ES'
+	}
+});
+
+if (play.is_expired()) play.refreshToken();
 
 client.login(process.env.TOKEN);

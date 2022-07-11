@@ -1,4 +1,5 @@
 module.exports = async (client, interaction) => {
+	if (!interaction.inCachedGuild()) return;
 	if (interaction.isCommand()) {
 		const command = client.commands.get(interaction.commandName);
 		if (!command) return;
